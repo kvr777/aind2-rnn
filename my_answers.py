@@ -60,20 +60,20 @@ def build_part1_RNN(step_size, window_size):
 ### TODO: list all unique characters in the text and remove any non-english ones
 def clean_text(text):
     # find all unique characters in the text
-    # Count char occuriencies and sort them by the frequency (ascending order)
-    import collections, operator
-    letters = collections.Counter(text)
-    sorted_letters = sorted(letters.items(), key=operator.itemgetter(1))
+    # import necessary library
+    import string
 
-    # Print 25 the most rare characters
-    print(sorted_letters[:25])
+    # build list of good symbols
+    good_signs = set([' ', '!', ',', '.', ':', ';', '?'])
+    good_symbols = good_signs.union(string.ascii_lowercase)
 
-    # According to visual analysis I decided to delete the following chars
-    not_english_char_list = ['à', 'â', 'è', '%', 'é', '*', '/', '@', '$', '&']
+    # find symbols to remove. Print them for control
+    bad_symb_list = list(good_symbols.symmetric_difference(set(text)))
+    print(bad_symb_list)
 
-    # remove as many non-english characters and character sequences as you can 
+    # remove as many non-english characters and character sequences as you can
     ## replace the char from list to spaces
-    for char in not_english_char_list:
+    for char in bad_symb_list:
         text = text.replace(char, ' ')
 
 ### TODO: fill out the function below that transforms the input text and window-size into a set of input/output pairs for use with our RNN model
